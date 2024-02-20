@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new HttpRequestTask().execute("http://iotlab.telecomnancy.eu:8080/iotlab/rest/data/1/light1/last");
+                new HttpRequestTask().execute("http://192.168.127.12:8080/iotlab/rest/data/1/light1/last");
             }
         });
 
@@ -160,6 +160,18 @@ public class MainActivity extends AppCompatActivity {
         }
         protected void onPostExecute(List data_list) {
             Log.d(TAG, "Réponse du serveur : " + data_list);
+            String subject = "Données reçues depuis le serveur";
+            String body = "Les données reçues sont : " + data_list;
+            String recipient = "yassine.boutahir2015@gmail.com";
+
+            // Envoi d'email
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("plain/text");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+
+            startActivity(Intent.createChooser(emailIntent, "Envoyer l'email via :"));
         }
     }
     }
