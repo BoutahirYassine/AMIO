@@ -1,11 +1,13 @@
 package com.example.projectamio;
 // MainActivity.java
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -37,12 +39,13 @@ public class MainActivity extends AppCompatActivity {
     // Key for SharedPreferences
     private static final String PREF_START_AT_BOOT = "start_at_boot";
     private MyBootBroadcastReceiver myreceiver;
+    private Vibrator vibrator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         myreceiver = new MyBootBroadcastReceiver();
         IntentFilter filtre = new IntentFilter("android.intent.action.BOOT_COMPLETED");
         registerReceiver(myreceiver, filtre);
@@ -115,10 +118,17 @@ public class MainActivity extends AppCompatActivity {
         // Modify TV2 text
         textView2.setText("Arrêté");
     }
-
+    private void vibratePhone(long milliseconds) {
+        if (vibrator != null && vibrator.hasVibrator()) {
+            vibrator.vibrate(milliseconds);
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if (vibrator != null) {
+            vibrator.cancel();
+        }
         Log.d(TAG, "L'activité principale a été détruite.");
     }
 
@@ -170,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
             emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
             emailIntent.putExtra(Intent.EXTRA_TEXT, body);
-
+            vibratePhone(500);
             startActivity(Intent.createChooser(emailIntent, "Envoyer l'email via :"));
         }
     }
