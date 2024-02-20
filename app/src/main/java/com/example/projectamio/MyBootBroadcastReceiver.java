@@ -15,9 +15,10 @@ public class MyBootBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "Boot completed. Starting service...");
-
-            // Vérifier si l'utilisateur a coché l'option correspondante dans les préférences
-            if (getStartAtBootState(context)) {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                boolean getStartAtBootState =sharedPreferences.getBoolean("your_checkbox_preference_key", false);
+        // Vérifier si l'utilisateur a coché l'option correspondante dans les préférences
+            if (getStartAtBootState) {
                 // Démarrer le service
                 Intent serviceIntent = new Intent(context, MainService.class);
                 context.startService(serviceIntent);
@@ -28,9 +29,4 @@ public class MyBootBroadcastReceiver extends BroadcastReceiver {
 
     }
 
-    // Récupérer l'état de la CheckBox dans SharedPreferences
-    private boolean getStartAtBootState(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getBoolean("start_at_boot", false); // Default is false
-    }
 }

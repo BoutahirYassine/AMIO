@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         // Find the components
         textView2 = findViewById(R.id.textView2);
         toggleButton = findViewById(R.id.toggleButton1);
-        checkBoxStartAtBoot = findViewById(R.id.checkBoxStartAtBoot);
 
         Button sendRequestButton = findViewById(R.id.sendRequestButton);
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
@@ -79,21 +78,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Set the CheckBox listener
-        checkBoxStartAtBoot.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // React to checkbox changes
-                Log.d(TAG, "Start at boot checkbox state changed: " + isChecked);
 
-                // Save the checkbox state in SharedPreferences
-                saveStartAtBootState(isChecked);
-            }
-        });
-
-        // Retrieve the checkbox state from SharedPreferences and set it
-        boolean startAtBoot = getStartAtBootState();
-        checkBoxStartAtBoot.setChecked(startAtBoot);
 
 
         Log.d(TAG, "L'activité principale a été créée.");
@@ -130,20 +115,6 @@ public class MainActivity extends AppCompatActivity {
             vibrator.cancel();
         }
         Log.d(TAG, "L'activité principale a été détruite.");
-    }
-
-    // Save the checkbox state in SharedPreferences
-    private void saveStartAtBootState(boolean isChecked) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(PREF_START_AT_BOOT, isChecked);
-        editor.apply();
-    }
-
-    // Retrieve the checkbox state from SharedPreferences
-    private boolean getStartAtBootState() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        return preferences.getBoolean(PREF_START_AT_BOOT, false); // Default is false
     }
 
     private class HttpRequestTask extends AsyncTask<String, Void, List> {

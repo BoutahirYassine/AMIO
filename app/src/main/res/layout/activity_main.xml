@@ -81,17 +81,11 @@
         android:id="@+id/sendRequestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/checkBoxStartAtBoot"
+        android:layout_below="@+id/toggleButton2"
         android:text="@string/ENV" />
 
 
-    <CheckBox
-        android:id="@+id/checkBoxStartAtBoot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toggleButton2"
-        android:layout_marginTop="20dp"
-        android:text="@string/start" />
+
 
 
     <androidx.fragment.app.FragmentContainerView
