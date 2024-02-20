@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">ProjectAMIO</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <string name="pointI"> "None"</string>
+    <string name="SS"> Service Status:</string>
+    <string name="arret"> arrêté</string>
+    <string name="LR"> Last result:</string>
+    <string name="LA"> Last alert:</string>
+    <string name="switched"> "   "switch</string>
+    <string name="switched1"> "   "switch</string>
+    <string name="boot"> "   "start on boot</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="off">OFF</string>
+    <string name="on">ON</string>
+    <string name="ENV">Envoyer la requête</string>
+    <string name="start">Start on boot</string>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,45 +15,45 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Service status: "
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/SS" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Arrêté"
-        android:layout_below="@+id/textView1"/>
+        android:layout_below="@+id/textView1"
+        android:text="@string/arret" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Last result: "
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/LR" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="None"
-        android:layout_below="@+id/textView3"/>
+        android:layout_below="@+id/textView3"
+        android:text="@string/pointI" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Last alert: "
         android:layout_below="@+id/textView4"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/LA" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="None"
-        android:layout_below="@+id/textView5"/>
+        android:layout_below="@+id/textView5"
+        android:text="@string/pointI" />
 
     <!-- Toggle Buttons -->
 
@@ -63,8 +64,8 @@
         android:layout_below="@+id/textView6"
         android:layout_marginTop="20dp"
         android:checked="false"
-        android:textOff="Off"
-        android:textOn="On" />
+        android:textOff="@string/off"
+        android:textOn="@string/on" />
 
     <ToggleButton
         android:id="@+id/toggleButton2"
@@ -73,23 +74,34 @@
         android:layout_below="@+id/toggleButton1"
         android:layout_marginTop="20dp"
         android:checked="false"
-        android:textOff="Off"
-        android:textOn="On" />
+        android:textOff="@string/off"
+        android:textOn="@string/on" />
 
     <Button
         android:id="@+id/sendRequestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/checkBoxStartAtBoot"
-        android:text="Envoyer la requête" />
+        android:text="@string/ENV" />
 
 
     <CheckBox
         android:id="@+id/checkBoxStartAtBoot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start at boot"
         android:layout_below="@+id/toggleButton2"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/start" />
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.example.projectamio.SettingsFragment"
+        android:layout_width="380dp"
+        android:layout_height="131dp"
+        android:layout_alignTop="@+id/sendRequestButton"
+
+        android:layout_marginTop="50dp" />
+
 
 </RelativeLayout>
