@@ -1,13 +1,10 @@
 package com.example.projectamio;
 // MainActivity.java
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +13,11 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 
-public class MainActivity extends Activity implements LightHttpRequestTask.IDataListener {
+public class MainActivity extends AppCompatActivity implements LightHttpRequestTask.IDataListener {
 
     private static final String TAG = "MainActivity";
     private TextView textView2;
