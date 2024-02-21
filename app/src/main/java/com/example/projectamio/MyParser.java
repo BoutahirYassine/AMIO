@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyParser {
-    List data_list;
+    List<Data> data_list;
     public MyParser() {
         data_list = new ArrayList();
     }
 
-    public List readJsonStream(InputStream in) throws IOException {
+    public List<Data> readJsonStream(InputStream in) throws IOException {
 
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {

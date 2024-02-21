@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -17,18 +16,9 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity implements LightHttpRequestTask.IDataListener {
 
     private static final String TAG = "MainActivity";
     private TextView textView2;
@@ -39,7 +29,36 @@ public class MainActivity extends AppCompatActivity {
     // Key for SharedPreferences
     private static final String PREF_START_AT_BOOT = "start_at_boot";
     private MyBootBroadcastReceiver myreceiver;
+    // private static final String IOT_URL = "http://iotlab.telecomnancy.eu:8080/iotlab/rest/data/1/light1/last";
+    public static final String IOT_URL = "http://192.168.1.12:8080/iotlab/rest/data/1/light1/last";
+
+    private List<Data> manualLightDataList = null;
+    // Key for SharedPreferences
     private Vibrator vibrator;
+
+
+    @Override
+    public void onDataReceived(List<Data> dataList) {
+        // Mise à jour des données
+        manualLightDataList = dataList;
+        sendMail();
+    }
+
+    private void sendMail() {
+        String subject = "Données reçues depuis le serveur";
+        String body = "Les données reçues sont : " + manualLightDataList;
+        String recipient = "yassine.boutahir2015@gmail.com";
+
+        // Envoi d'email
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("plain/text");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+        vibratePhone(500);
+        startActivity(Intent.createChooser(emailIntent, "Envoyer l'email via :"));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,7 +77,10 @@ public class MainActivity extends AppCompatActivity {
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new HttpRequestTask().execute("http://192.168.127.12:8080/iotlab/rest/data/1/light1/last");
+                Log.d(TAG, "Send request button");
+                LightHttpRequestTask task = new LightHttpRequestTask(MainActivity.this);
+                task.setOnDataReceivedListener(MainActivity.this);
+                task.execute(IOT_URL);
             }
         });
 
@@ -78,21 +100,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         Log.d(TAG, "L'activité principale a été créée.");
-
-
     }
 
     private void startMainService() {
+        Log.d(TAG, "START MAIN SERVICE");
         // Start the MainService
         Intent serviceIntent = new Intent(this, MainService.class);
         startService(serviceIntent);
 
         // Modify TV2 text
-        textView2.setText("En cours");
+        textView2.setText("Service en cours");
     }
 
     private void stopMainService() {
@@ -101,8 +119,9 @@ public class MainActivity extends AppCompatActivity {
         stopService(serviceIntent);
 
         // Modify TV2 text
-        textView2.setText("Arrêté");
+        textView2.setText("Service arrêté");
     }
+
     private void vibratePhone(long milliseconds) {
         if (vibrator != null && vibrator.hasVibrator()) {
             vibrator.vibrate(milliseconds);
@@ -117,42 +136,4 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "L'activité principale a été détruite.");
     }
 
-    private class HttpRequestTask extends AsyncTask<String, Void, List> {
-        private List data_list;
-        private MyParser parser = new MyParser();
-        @Override
-        protected List doInBackground(String... params) {
-            String apiUrl = params[0];
-
-            try {
-                URL url = new URL(apiUrl);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-
-                try {
-                    InputStream in = urlConnection.getInputStream();
-                    data_list = parser.readJsonStream(in);
-                } finally {
-                    urlConnection.disconnect();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return data_list;
-        }
-        protected void onPostExecute(List data_list) {
-            Log.d(TAG, "Réponse du serveur : " + data_list);
-            String subject = "Données reçues depuis le serveur";
-            String body = "Les données reçues sont : " + data_list;
-            String recipient = "yassine.boutahir2015@gmail.com";
-
-            // Envoi d'email
-            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("plain/text");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
-            vibratePhone(500);
-            startActivity(Intent.createChooser(emailIntent, "Envoyer l'email via :"));
-        }
-    }
-    }
+}
