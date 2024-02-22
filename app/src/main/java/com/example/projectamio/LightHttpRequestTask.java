@@ -33,6 +33,7 @@ public class LightHttpRequestTask extends AsyncTask<String, Void, List<Data>> {
 
         try {
             URL url = new URL(apiUrl);
+            Log.e(TAG, url.toString());
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try {
                 InputStream in = urlConnection.getInputStream();

@@ -83,10 +83,7 @@ public class MainService extends Service implements LightHttpRequestTask.IDataLi
 
     @Override
     public void onDataReceived(List<Data> newLightDataList) {
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        View layout = inflater.inflate(R.layout.activity_main,null);
-        TextView text= layout.findViewById(R.id.textView);
         // Remplissage de la liste lors du premier appel
         if (previousLightDataList == null) {
             Log.d(TAG, "Premier appel : ");
@@ -97,17 +94,15 @@ public class MainService extends Service implements LightHttpRequestTask.IDataLi
             // Etat du changement brusque de luminosité
             boolean stateChange = false;
             // Parcours des motes
-            String dataTextView="";
             for (int i = 0; i < previousLightDataList.size(); i++) {
                 double new_delta = Math.abs(newLightDataList.get(i).light - previousLightDataList.get(i).light);
-                dataTextView+="mote : "+newLightDataList.get(i).mote+" Data : "+newLightDataList.get(i).light.toString()+" timestamp : "+newLightDataList.get(i).timestamp.toString()+"\n";
                 // Si la différence de luminosité est supérieur à DELTA
                 if (new_delta >= DELTA) {
                     stateChange = true;
                     break;
                 }
             }
-            text.setText(dataTextView);
+
             // Mise à jour de des données
             previousLightDataList = newLightDataList;
             // Si un changement brusque à eu lieu, on notifie l'utilisateur
