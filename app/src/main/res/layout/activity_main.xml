@@ -103,7 +103,7 @@
         android:layout_height="131dp"
         android:layout_alignTop="@+id/sendRequestButton"
 
-        android:layout_marginTop="172dp" />
+        android:layout_marginTop="268dp" />
 
 
 </RelativeLayout>
