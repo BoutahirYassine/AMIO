@@ -28,4 +28,5 @@
     <string name="on">ON</string>
     <string name="ENV">Envoyer la requête</string>
     <string name="start">Start on boot</string>
+    <string name="data">Data</string>
 </resources>
