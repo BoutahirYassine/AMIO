@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
@@ -88,7 +89,14 @@ public class MainActivity extends AppCompatActivity implements LightHttpRequestT
                 task.execute(IOT_URL);
             }
         });
-
+        Button settingsbutton = findViewById(R.id.button2);
+        settingsbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i= new Intent(getApplicationContext(), MainActivity2.class);
+                startActivity(i);
+            }
+        });
 
         // Set the toggle button listener
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
