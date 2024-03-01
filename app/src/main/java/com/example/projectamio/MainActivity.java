@@ -4,8 +4,10 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -51,18 +53,26 @@ public class MainActivity extends AppCompatActivity implements LightHttpRequestT
     }
 
     private void sendMail() {
-        String subject = "Données reçues depuis le serveur";
-        String body = "Les données reçues sont : " + manualLightDataList;
-        String recipient = "yassine.boutahir2015@gmail.com";
+        int hourOfDay = java.time.LocalTime.now().getHour();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int heure_deb=Integer.parseInt(sharedPreferences.getString("heure_debut","0"));
+        int heure_fin=Integer.parseInt(sharedPreferences.getString("heure_fin","0"));
+        Log.d("heure",sharedPreferences.getString("heure_debut","0"));
+        if (hourOfDay >= heure_deb && hourOfDay < heure_fin) {
 
-        // Envoi d'email
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setType("plain/text");
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
-        vibratePhone(500);
-        startActivity(Intent.createChooser(emailIntent, "Envoyer l'email via :"));
+            String subject = "Données reçues depuis le serveur";
+            String body = "Les données reçues sont : " + manualLightDataList;
+            String recipient = "yassine.boutahir2015@gmail.com";
+
+            // Envoi d'email
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("plain/text");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{recipient});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+            vibratePhone(500);
+            startActivity(Intent.createChooser(emailIntent, "Envoyer l'email via :"));
+        }
     }
 
     @Override

@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:key="heure_debut"
             android:title="heure de début"
-            app:defaultValue="18"
+            app:defaultValue="19"
             app:entries="@array/heure_string"
             app:entryValues="@array/heure_string" />
         <ListPreference
