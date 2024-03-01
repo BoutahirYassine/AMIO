@@ -31,11 +31,10 @@ public class MainActivity extends AppCompatActivity implements LightHttpRequestT
     // Key for SharedPreferences
     private static final String PREF_START_AT_BOOT = "start_at_boot";
     private MyBootBroadcastReceiver myreceiver;
-    // private static final String IOT_URL = "http://iotlab.telecomnancy.eu:8080/iotlab/rest/data/1/light1/last";
-    public static final String IOT_URL = "http://192.168.110.234:8080/iotlab/rest/data/1/light1/last";
+    private static final String IOT_URL = "http://iotlab.telecomnancy.eu:8080/iotlab/rest/data/1/light1/last";
 
     private List<Data> manualLightDataList = null;
-    // Key for SharedPreferences
+
     private Vibrator vibrator;
 
 
