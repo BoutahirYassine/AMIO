@@ -25,7 +25,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity2"
+            android:name=".SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_main2"
             android:theme="@style/Theme.ProjectAMIO" />

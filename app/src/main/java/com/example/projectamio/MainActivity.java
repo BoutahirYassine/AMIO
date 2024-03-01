@@ -1,5 +1,6 @@
 package com.example.projectamio;
 // MainActivity.java
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -13,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements LightHttpRequestT
     private static final String PREF_START_AT_BOOT = "start_at_boot";
     private MyBootBroadcastReceiver myreceiver;
     // private static final String IOT_URL = "http://iotlab.telecomnancy.eu:8080/iotlab/rest/data/1/light1/last";
-    public static final String IOT_URL = "http://192.168.193.51:8080/iotlab/rest/data/1/light1/last";
+    public static final String IOT_URL = "http://192.168.110.234:8080/iotlab/rest/data/1/light1/last";
 
     private List<Data> manualLightDataList = null;
     // Key for SharedPreferences
@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements LightHttpRequestT
         IntentFilter filtre = new IntentFilter("android.intent.action.BOOT_COMPLETED");
         registerReceiver(myreceiver, filtre);
 
+        // demande de permission de notification
+        requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS},99);
         // Find the components
         textView2 = findViewById(R.id.textView2);
         toggleButton = findViewById(R.id.toggleButton1);
@@ -89,11 +91,13 @@ public class MainActivity extends AppCompatActivity implements LightHttpRequestT
                 task.execute(IOT_URL);
             }
         });
+
+        //partir vers la page des préférences
         Button settingsbutton = findViewById(R.id.button2);
         settingsbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i= new Intent(getApplicationContext(), MainActivity2.class);
+                Intent i= new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity(i);
             }
         });

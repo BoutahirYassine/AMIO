@@ -8,13 +8,13 @@
     android:paddingTop="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
-    tools:context=".MainActivity2">
+    tools:context=".SettingsActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="com.example.projectamio.SettingsFragment"
-        android:layout_width="380dp"
-        android:layout_height="131dp"
+        android:layout_width="395dp"
+        android:layout_height="526dp"
 
         android:layout_alignParentTop="true"
         android:layout_marginTop="16dp" />

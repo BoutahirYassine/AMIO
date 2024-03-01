@@ -10,9 +10,11 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -126,9 +128,13 @@ public class MainService extends Service implements LightHttpRequestTask.IDataLi
 
     private void sendNotification() {
         int hourOfDay = java.time.LocalTime.now().getHour();
-
-        if (hourOfDay >= 18 - 10 && hourOfDay < 23) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        int heure_deb=Integer.parseInt(sharedPreferences.getString("heure_debut","0"));
+        int heure_fin=Integer.parseInt(sharedPreferences.getString("heure_fin","0"));
+        Log.d("heure",sharedPreferences.getString("heure_debut","0"));
+        if (hourOfDay >= heure_deb && hourOfDay < heure_fin) {
             try {
+
                 notificationManagerCompat.notify(0, notification);
             }  catch (Exception e) {
                 Log.e(TAG, "Erreur lors de la construction et de l'affichage de la notification : " + e.getMessage());

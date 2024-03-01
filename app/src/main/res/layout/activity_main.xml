@@ -36,54 +36,13 @@
         android:layout_below="@+id/textView1"
         android:text="@string/arret" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="20dp"
-        android:text="@string/LR" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:text="@string/pointI" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="20dp"
-        android:text="@string/LA" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView5"
-        android:text="@string/pointI" />
-
-    <!-- Toggle Buttons -->
 
     <ToggleButton
         android:id="@+id/toggleButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView6"
-        android:layout_marginTop="20dp"
-        android:checked="false"
-        android:textOff="@string/off"
-        android:textOn="@string/on" />
-
-    <ToggleButton
-        android:id="@+id/toggleButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toggleButton1"
-        android:layout_marginTop="20dp"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="4dp"
         android:checked="false"
         android:textOff="@string/off"
         android:textOn="@string/on" />
@@ -92,7 +51,8 @@
         android:id="@+id/sendRequestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toggleButton2"
+        android:layout_below="@+id/toggleButton1"
+        android:layout_marginTop="63dp"
         android:text="@string/ENV" />
 
     <Button
@@ -104,6 +64,14 @@
         android:layout_marginEnd="39dp"
         android:layout_marginBottom="44dp"
         android:text="Paramètres" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="50dp"
+        android:text="Démarré le service" />
 
 
 </RelativeLayout>
